@@ -1,0 +1,145 @@
+@model Participant
+
+@{
+    ViewData["Title"] = "Participant Details";
+}
+
+<div class="container mt-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+            <h3>Participant Details</h3>
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-success">
+                <h4>Welcome, @Model.ParticipantName!</h4>
+
+                <p class="mb-0">
+                    You are registered for
+                    <strong>@Model.EventName</strong>.
+                </p>
+            </div>
+
+            @if (Model.GetRegistrationStatus() == "Confirmed")
+            {
+                <div class="alert alert-success">
+                    <strong>Registration Confirmed!</strong>
+                    Your registration has been successfully completed.
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning">
+                    <strong>Registration Pending!</strong>
+                    Your registration is still pending.
+                </div>
+            }
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <h5 class="text-primary mb-3">
+                        Personal Information
+                    </h5>
+
+                    <p>
+                        <strong>Participant ID:</strong>
+                        @Model.ParticipantId
+                    </p>
+
+                    <p>
+                        <strong>Name:</strong>
+                        @Model.ParticipantName
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        @Model.Email
+                    </p>
+
+                    <p>
+                        <strong>Department:</strong>
+                        @Model.Department
+                    </p>
+
+                    <p>
+                        <strong>Year:</strong>
+                        @Model.Year
+                    </p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <h5 class="text-primary mb-3">
+                        Event Information
+                    </h5>
+
+                    <p>
+                        <strong>Event:</strong>
+                        @Model.EventName
+                    </p>
+
+                    <p>
+                        <strong>Event Type:</strong>
+
+                        @if (Model.IsTeamEvent)
+                        {
+                            <span class="badge bg-info">
+                                Team Event
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">
+                                Individual Event
+                            </span>
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Registration Status:</strong>
+
+                        @if (Model.GetRegistrationStatus() == "Confirmed")
+                        {
+                            <span class="badge bg-success">
+                                @Model.GetRegistrationStatus()
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">
+                                @Model.GetRegistrationStatus()
+                            </span>
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Registration Fee:</strong>
+                        ₹@Model.RegistrationFee
+                    </p>
+
+                    <p>
+                        <strong>Fee Category:</strong>
+                        @Model.GetFeeCategory()
+                    </p>
+
+                </div>
+
+            </div>
+
+            <hr />
+
+            <a asp-action="Index" asp-controller="Fest" class="btn btn-primary">
+                Back to Participants
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

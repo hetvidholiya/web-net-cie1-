@@ -1,0 +1,120 @@
+@model IEnumerable<Participant>
+
+@{
+    ViewData["Title"] = "Participants";
+}
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">
+            AMTICS Technical Fest - Registrations
+        </h2>
+
+        <div>
+            <a asp-action="Register" asp-controller="Fest" class="btn btn-primary">
+                Register
+            </a>
+
+            <a asp-action="Welcome" asp-controller="Fest" class="btn btn-success">
+                Welcome
+            </a>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning">
+            No participants have registered yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Participant Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Year</th>
+                        <th>Event</th>
+                        <th>Registration Status</th>
+                        <th>Registration Fee</th>
+                        <th>Fee Category</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var participant in Model)
+                    {
+                        <tr>
+                            <td>@participant.ParticipantId</td>
+
+                            <td>@participant.ParticipantName</td>
+
+                            <td>@participant.Email</td>
+
+                            <td>@participant.Department</td>
+
+                            <td>@participant.Year</td>
+
+                            <td>
+                                @participant.EventName
+
+                                @if (participant.IsTeamEvent)
+                                {
+                                    <span class="badge bg-info">
+                                        Team Event
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">
+                                        Individual
+                                    </span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (participant.GetRegistrationStatus() == "Confirmed")
+                                {
+                                    <span class="badge bg-success">
+                                        Confirmed
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">
+                                        Pending
+                                    </span>
+                                }
+                            </td>
+
+                            <td>
+                                ₹@participant.RegistrationFee
+                            </td>
+
+                            <td>
+                                @participant.GetFeeCategory()
+                            </td>
+
+                            <td>
+                                <a asp-action="Details" asp-controller="Fest" asp-route-id="@participant.ParticipantId"
+                                   class="btn btn-sm btn-info text-white">
+                                    Details
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    }
+
+</div>

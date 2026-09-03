@@ -1,0 +1,152 @@
+@model Participant
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">AMTICS Technical Fest Registration</h3>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Register" asp-controller="Fest" method="post">
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger">
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ParticipantName" class="form-label">
+                        Participant Name
+                    </label>
+
+                    <input asp-for="ParticipantName" class="form-control" placeholder="Enter participant name" />
+
+                    <span asp-validation-for="ParticipantName" class="text-danger">
+                    </span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">
+                        Email
+                    </label>
+
+                    <input asp-for="Email" type="email" class="form-control" placeholder="Enter email address" />
+
+                    <span asp-validation-for="Email" class="text-danger">
+                    </span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Department" class="form-label">
+                        Department
+                    </label>
+
+                    <select asp-for="Department" class="form-select">
+
+                        <option value="">
+                            -- Select Department --
+                        </option>
+
+                        <option>Computer Science</option>
+                        <option>Information Technology</option>
+                        <option>Artificial Intelligence</option>
+                        <option>Electronics</option>
+                        <option>Mechanical</option>
+                    </select>
+
+                    <span asp-validation-for="Department" class="text-danger">
+                    </span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Year" class="form-label">
+                        Year
+                    </label>
+
+                    <select asp-for="Year" class="form-select">
+
+                        <option value="">
+                            -- Select Year --
+                        </option>
+
+                        <option>First Year</option>
+                        <option>Second Year</option>
+                        <option>Third Year</option>
+                        <option>Final Year</option>
+                    </select>
+
+                    <span asp-validation-for="Year" class="text-danger">
+                    </span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="EventName" class="form-label">
+                        Event Name
+                    </label>
+
+                    <select asp-for="EventName" class="form-select">
+
+                        <option value="">
+                            -- Select Event --
+                        </option>
+
+                        <option>Hackathon</option>
+                        <option>Code Debugging</option>
+                        <option>Web Design</option>
+                        <option>Paper Presentation</option>
+                        <option>Quiz Competition</option>
+                    </select>
+
+                    <span asp-validation-for="EventName" class="text-danger">
+                    </span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="RegistrationFee" class="form-label">
+                        Registration Fee
+                    </label>
+
+                    <select asp-for="RegistrationFee" class="form-select">
+
+                        <option value="0">₹0 - Free Event</option>
+                        <option value="300">₹300 - Standard Event</option>
+                        <option value="500">₹500 - Standard Event</option>
+                        <option value="1000">₹1000 - Premium Event</option>
+                    </select>
+                </div>
+
+                <div class="form-check mb-4">
+
+                    <input asp-for="IsTeamEvent" class="form-check-input" />
+
+                    <label asp-for="IsTeamEvent" class="form-check-label">
+                        This is a Team Event
+                    </label>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Register Now
+                </button>
+
+                <a asp-action="Index" asp-controller="Fest" class="btn btn-secondary">
+                    Back to Participants
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
